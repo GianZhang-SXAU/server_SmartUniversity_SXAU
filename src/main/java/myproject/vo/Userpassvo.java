@@ -1,0 +1,1 @@
+package myproject.vo;import lombok.Data;import myproject.entity.UsersEntity;import java.io.Serializable;@Datapublic class Userpassvo extends UsersEntity implements Serializable {	private String captcha;}

@@ -1,0 +1,51 @@
+package myproject.service.impl;
+
+
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+import myproject.common.impl.BaseServiceImpl;
+import myproject.common.page.PageResult;
+import myproject.dao.UsersDao;
+import myproject.entity.UsersEntity;
+import myproject.query.UsersQuery;
+import myproject.service.UsersService;
+
+import java.util.List;
+
+/**
+ * 系统用户
+ */
+@Service("usersService")
+@AllArgsConstructor
+public class UsersServiceImpl extends BaseServiceImpl<UsersDao, UsersEntity> implements UsersService {
+
+	@Override
+	public PageResult<UsersEntity> queryPage(UsersQuery user) {
+		IPage<UsersEntity> page = baseMapper.selectPage(getPage(user), getWrapper(user));
+		return new PageResult<>(page.getRecords(), page.getTotal());
+	}
+
+	private Wrapper<UsersEntity> getWrapper(UsersQuery query) {
+		LambdaQueryWrapper<UsersEntity> wrapper = new LambdaQueryWrapper<>();
+		wrapper.eq(null != query.getUsername(), UsersEntity::getUsername, query.getUsername());
+		wrapper.eq(null != query.getName(), UsersEntity::getName, query.getName());
+		wrapper.eq(null != query.getRole(), UsersEntity::getRole, query.getRole());
+		wrapper.eq(null != query.getId(), UsersEntity::getId, query.getId());
+		wrapper.orderByDesc(UsersEntity::getAddtime);
+		return wrapper;
+	}
+
+	@Override
+	public List<UsersEntity> selectListView(Wrapper<UsersEntity> wrapper) {
+		return baseMapper.selectListView(wrapper);
+	}
+
+	@Override
+	public UsersEntity getByUsername(String username) {
+		return baseMapper.selectOne(new QueryWrapper<UsersEntity>().eq("username", username));
+	}
+}

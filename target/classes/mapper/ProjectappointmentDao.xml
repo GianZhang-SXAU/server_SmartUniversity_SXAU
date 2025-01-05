@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="myproject.dao.ProjectappointmentDao">
+
+    <resultMap type="myproject.entity.ProjectappointmentEntity" id="projectappointmentMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="shenheid" column="shenheid"/>
+        <result property="userid" column="userid"/>
+        <result property="username" column="username"/>
+        <result property="adduserid" column="adduserid"/>
+        <result property="addusername" column="addusername"/>
+        <result property="photo" column="photo"/>
+        <result property="shenhe" column="shenhe"/>
+        <result property="files" column="files"/>
+        <result property="addtime" column="addtime"/>
+    </resultMap>
+        <select id="selectValue" resultType="java.util.Map">
+        SELECT ${params.xColumn}, sum(${params.yColumn}) total FROM projectappointment 
+        <where>${ew.sqlSegment}</where>
+        group by ${params.xColumn}
+        limit 10
+    </select>
+        <select id="selectTimeStatValue" resultType="java.util.Map">
+        <if test='params.timeStatType == "日"'>
+            SELECT DATE_FORMAT(${params.xColumn},'%Y-%m-%d') ${params.xColumn}, sum(${params.yColumn}) projectappointment 
+            FROM
+            projectappointment 
+            <where>${ew.sqlSegment}</where>
+            group by DATE_FORMAT(${params.xColumn},'%Y-%m-%d')
+        </if>
+        <if test='params.timeStatType == "月"'>
+            SELECT DATE_FORMAT(${params.xColumn},'%Y-%m') ${params.xColumn}, sum(${params.yColumn}) projectappointment  FROM
+            projectappointment 
+            <where>${ew.sqlSegment}</where>
+            group by DATE_FORMAT(${params.xColumn},'%Y-%m')
+        </if>
+        <if test='params.timeStatType == "年"'>
+            SELECT DATE_FORMAT(${params.xColumn},'%Y') ${params.xColumn}, sum(${params.yColumn}) projectappointment  FROM
+            projectappointment 
+            <where>${ew.sqlSegment}</where>
+            group by DATE_FORMAT(${params.xColumn},'%Y')
+        </if>
+        order by ${params.xColumn}
+    </select>
+        <select id="selectGroup" resultType="java.util.Map">
+        SELECT ${params.column} , count(1) projectappointment  FROM projectappointment 
+        <where>${ew.sqlSegment}</where>
+        group by ${params.column}
+        limit 10
+    </select>
+</mapper>

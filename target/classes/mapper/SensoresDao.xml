@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="myproject.dao.SensoresDao">
+
+    <resultMap type="myproject.entity.SensoresEntity" id="sensoresMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="type" column="type"/>
+        <result property="sensorbrand" column="sensorbrand"/>
+        <result property="installationposition" column="installationposition"/>
+        <result property="installationtime" column="installationtime"/>
+        <result property="sensorstate" column="sensorstate"/>
+        <result property="vehicleid" column="vehicleid"/>
+        <result property="vehiclename" column="vehiclename"/>
+        <result property="photo" column="photo"/>
+        <result property="details" column="details"/>
+        <result property="addtime" column="addtime"/>
+    </resultMap>
+        <select id="selectValue" resultType="java.util.Map">
+        SELECT ${params.xColumn}, sum(${params.yColumn}) total FROM sensores 
+        <where>${ew.sqlSegment}</where>
+        group by ${params.xColumn}
+        limit 10
+    </select>
+        <select id="selectTimeStatValue" resultType="java.util.Map">
+        <if test='params.timeStatType == "日"'>
+            SELECT DATE_FORMAT(${params.xColumn},'%Y-%m-%d') ${params.xColumn}, sum(${params.yColumn}) sensores 
+            FROM
+            sensores 
+            <where>${ew.sqlSegment}</where>
+            group by DATE_FORMAT(${params.xColumn},'%Y-%m-%d')
+        </if>
+        <if test='params.timeStatType == "月"'>
+            SELECT DATE_FORMAT(${params.xColumn},'%Y-%m') ${params.xColumn}, sum(${params.yColumn}) sensores  FROM
+            sensores 
+            <where>${ew.sqlSegment}</where>
+            group by DATE_FORMAT(${params.xColumn},'%Y-%m')
+        </if>
+        <if test='params.timeStatType == "年"'>
+            SELECT DATE_FORMAT(${params.xColumn},'%Y') ${params.xColumn}, sum(${params.yColumn}) sensores  FROM
+            sensores 
+            <where>${ew.sqlSegment}</where>
+            group by DATE_FORMAT(${params.xColumn},'%Y')
+        </if>
+        order by ${params.xColumn}
+    </select>
+        <select id="selectGroup" resultType="java.util.Map">
+        SELECT ${params.column} , count(1) sensores  FROM sensores 
+        <where>${ew.sqlSegment}</where>
+        group by ${params.column}
+        limit 10
+    </select>
+</mapper>

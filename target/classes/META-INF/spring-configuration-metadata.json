@@ -1,0 +1,112 @@
+{
+  "groups": [
+    {
+      "name": "alipay",
+      "type": "myproject.common.config.AlipayConfig",
+      "sourceType": "myproject.common.config.AlipayConfig"
+    },
+    {
+      "name": "storage",
+      "type": "myproject.common.storage.properties.StorageProperties",
+      "sourceType": "myproject.common.storage.properties.StorageProperties"
+    },
+    {
+      "name": "storage.config",
+      "type": "myproject.common.storage.properties.StorageProperties$StorageConfig",
+      "sourceType": "myproject.common.storage.properties.StorageProperties"
+    },
+    {
+      "name": "storage.local",
+      "type": "myproject.common.storage.properties.LocalStorageProperties",
+      "sourceType": "myproject.common.storage.properties.StorageProperties",
+      "sourceMethod": "localStorageProperties()"
+    },
+    {
+      "name": "xss",
+      "type": "myproject.common.xss.XssProperties",
+      "sourceType": "myproject.common.xss.XssProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "alipay.alipay-public-key",
+      "type": "java.lang.String",
+      "sourceType": "myproject.common.config.AlipayConfig"
+    },
+    {
+      "name": "alipay.app-id",
+      "type": "java.lang.String",
+      "sourceType": "myproject.common.config.AlipayConfig"
+    },
+    {
+      "name": "alipay.app-private-key",
+      "type": "java.lang.String",
+      "sourceType": "myproject.common.config.AlipayConfig"
+    },
+    {
+      "name": "alipay.notify-url",
+      "type": "java.lang.String",
+      "sourceType": "myproject.common.config.AlipayConfig"
+    },
+    {
+      "name": "alipay.return-url",
+      "type": "java.lang.String",
+      "sourceType": "myproject.common.config.AlipayConfig"
+    },
+    {
+      "name": "storage.config.domain",
+      "type": "java.lang.String",
+      "description": "访问域名",
+      "sourceType": "myproject.common.storage.properties.StorageProperties$StorageConfig"
+    },
+    {
+      "name": "storage.config.prefix",
+      "type": "java.lang.String",
+      "description": "配置路径前缀",
+      "sourceType": "myproject.common.storage.properties.StorageProperties$StorageConfig"
+    },
+    {
+      "name": "storage.config.type",
+      "type": "myproject.common.storage.enums.StorageTypeEnum",
+      "description": "存储类型",
+      "sourceType": "myproject.common.storage.properties.StorageProperties$StorageConfig"
+    },
+    {
+      "name": "storage.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否开启存储",
+      "sourceType": "myproject.common.storage.properties.StorageProperties"
+    },
+    {
+      "name": "storage.local",
+      "type": "myproject.common.storage.properties.LocalStorageProperties",
+      "description": "本地配置项",
+      "sourceType": "myproject.common.storage.properties.StorageProperties"
+    },
+    {
+      "name": "storage.local.path",
+      "type": "java.lang.String",
+      "description": "本地存储路径",
+      "sourceType": "myproject.common.storage.properties.LocalStorageProperties"
+    },
+    {
+      "name": "storage.local.url",
+      "type": "java.lang.String",
+      "description": "资源起始路径",
+      "sourceType": "myproject.common.storage.properties.LocalStorageProperties"
+    },
+    {
+      "name": "xss.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否开启 XSS",
+      "sourceType": "myproject.common.xss.XssProperties"
+    },
+    {
+      "name": "xss.exclude-urls",
+      "type": "java.util.List<java.lang.String>",
+      "description": "排除的URL列表",
+      "sourceType": "myproject.common.xss.XssProperties"
+    }
+  ],
+  "hints": []
+}
